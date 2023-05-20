@@ -13,8 +13,15 @@ services:
       - ./src:/app/src
     ports:
       - "8000:8000"
+    environment:
+      DB_HOST: "db"
+      DB_NAME: "db"
+      DB_USER: "user"
+      DB_PASSWORD: "password"
+      DB_PORT: "3306"
     networks:
-      - rabbitmq_net
+      - broker_net
+      - db_net
   broker:
     image: rabbitmq:3-management-alpine
     container_name: 'task-management-broker'
@@ -29,7 +36,7 @@ services:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-      - rabbitmq_net
+      - broker_net
   db:
     image: mysql:8.0
     container_name: 'task-management-db'
@@ -45,7 +52,9 @@ services:
       - db-data:/var/lib/mysql
 
 networks:
-  rabbitmq_net:
+  broker_net:
+    driver: bridge
+  db_net:
     driver: bridge
 
 volumes:
