@@ -1,0 +1,64 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"HealthCheckResponse": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"version": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"version"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "task-management-api",
+		"version": "1.0.0",
+		"description": "API with typescript to task management.",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/healthCheck": {
+			"get": {
+				"operationId": "GetData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthCheckResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
