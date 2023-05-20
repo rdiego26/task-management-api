@@ -10,6 +10,7 @@ const config: ConnectionOptions = {
   database: process.env.DB_NAME,
   entities: [User],
   synchronize: true,
+  insecureAuth: true,
 };
 
 export default config;
