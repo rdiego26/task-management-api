@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  api:
+    container_name: 'task-management-api'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - broker
+      - db
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8000:8000"
+    networks:
+      - rabbitmq_net
+  broker:
+    image: rabbitmq:3-management-alpine
+    container_name: 'task-management-broker'
+    restart: always
+    environment:
+      - "RABBITMQ_DEFAULT_PASS=password"
+      - "RABBITMQ_DEFAULT_USER=username"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_net
+  db:
+    image: mysql:8.0
+    container_name: 'task-management-db'
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+networks:
+  rabbitmq_net:
+    driver: bridge
+
+volumes:
+  db-data:
