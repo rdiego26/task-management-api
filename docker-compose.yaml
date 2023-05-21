@@ -19,6 +19,7 @@ services:
       DB_USERNAME: "root"
       DB_PASSWORD: "password-secret"
       DB_PORT: "3306"
+      SECRET_JWT: "QKvvNE68gRt&vXNJB7Hc^Ajw"
     networks:
       - broker_net
       - db_net
