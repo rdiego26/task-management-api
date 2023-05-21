@@ -2,7 +2,7 @@ import path from "path";
 import { Get, Route } from "tsoa";
 const { name, version } = require(path.resolve("./package.json"));
 
-interface HealthCheckResponse {
+export interface HealthCheckResponse {
     name: string;
     version: string;
 }

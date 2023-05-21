@@ -1,13 +1,11 @@
 import express from "express";
-import HealthCheckController from "../controllers/healthCheck";
+import UserRouter from "./user.router";
+import HealthCheckRouter from "./healthCheck.router";
 
 const router = express.Router();
 
-router.get("/healthCheck", async (_req, res) => {
-   const controller = new HealthCheckController();
-   const response = await controller.getData();
 
-   return res.send(response);
-});
+router.use("/users", UserRouter);
+router.use("/healthCheck", HealthCheckRouter);
 
 export default router;
