@@ -14,7 +14,7 @@ import { User } from "./User";
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
+    id?: string;
 
     @Column({
         nullable: false
