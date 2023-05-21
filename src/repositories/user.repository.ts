@@ -33,3 +33,12 @@ export const getUser = async (id: string): Promise<UserEntity | null> => {
   }
   return user;
 };
+
+export const getUserByEmail = async (email: string): Promise<UserEntity | null> => {
+  const repository: Repository<UserEntity> = getRepository(UserEntity);
+  const user: UserEntity | null = await repository.findOne({ where: { email } });
+  if (!user) {
+    return null;
+  }
+  return user;
+};

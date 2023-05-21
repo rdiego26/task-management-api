@@ -1,4 +1,4 @@
-import { Role, UserEntity } from "../entities/user.entity";
+import { UserEntity } from "../entities/user.entity";
 import jwt from "jsonwebtoken";
 
 const JWT_KEY: string = process.env.SECRET_JWT || "default_Key";
