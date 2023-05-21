@@ -54,7 +54,7 @@ describe("UserController", () => {
           const userData: User = generateUserData();
           const spy = jest.spyOn(UserRepository, "getUser").mockResolvedValueOnce(userData);
           const controller: UserController = new UserController();
-          const user: User = await controller.getUser(userData.id);
+          const user: User | null = await controller.getUser(userData.id!!);
 
           expect(user).toEqual(userData);
           expect(user?.id).toBe(userData.id);
@@ -66,7 +66,7 @@ describe("UserController", () => {
            const id = randUuid();
            const spy = jest.spyOn(UserRepository, 'getUser').mockResolvedValueOnce(null)
            const controller: UserController = new UserController();
-           const user: User = await controller.getUser(id);
+           const user: User | null = await controller.getUser(id);
 
            expect(user).toBeNull();
            expect(spy).toHaveBeenCalledWith(id);
