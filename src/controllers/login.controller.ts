@@ -1,7 +1,7 @@
 import { Route, Tags, Post, Body } from "tsoa";
 import { getUserByEmail } from "../repositories/user.repository";
 import { generateAuthToken } from "../services/auth.service";
-import {comparePassword} from "../utils/passwordHash";
+import { comparePassword } from "../utils/passwordHash";
 
 export interface ILoginPayload {
     email: string;
