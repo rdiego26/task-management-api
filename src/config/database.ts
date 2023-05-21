@@ -1,6 +1,6 @@
 import { ConnectionOptions } from "typeorm";
-import { User } from "../entities/User";
-import { Task } from "../entities/Task";
+import { UserEntity } from "../entities/user.entity";
+import { TaskEntity } from "../entities/task.entity";
 
 const config: ConnectionOptions = {
   type: "mysql",
@@ -9,7 +9,7 @@ const config: ConnectionOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, Task],
+  entities: [UserEntity, TaskEntity],
   synchronize: true,
   insecureAuth: true,
 };

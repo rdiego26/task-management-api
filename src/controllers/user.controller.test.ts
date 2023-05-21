@@ -2,7 +2,7 @@ import { randUuid } from '@ngneat/falso';
 import UserController from "./user.controller";
 import * as UserRepository from "../repositories/user.repository";
 import { generateUsersData, generateUserData, generateUserPayload } from "../../test/utils/generate";
-import { User } from "../entities/User";
+import { UserEntity } from "../entities/user.entity";
 import {ICreateUserPayload} from "../repositories/user.repository";
 
 afterEach(() => {
@@ -15,7 +15,7 @@ describe("UserController", () => {
        test("should be return empty array", async() => {
            const spy = jest.spyOn(UserRepository, "getUsers").mockResolvedValueOnce([]);
            const controller: UserController = new UserController();
-           const users: User[] = await controller.getUsers();
+           const users: UserEntity[] = await controller.getUsers();
 
            expect(users).toEqual([]);
            expect(spy).toHaveBeenCalledWith();
@@ -23,10 +23,10 @@ describe("UserController", () => {
        });
 
        test("should return user list", async() => {
-           const usersData: User[] = generateUsersData(2);
+           const usersData: UserEntity[] = generateUsersData(2);
            const spy = jest.spyOn(UserRepository, 'getUsers').mockResolvedValueOnce(usersData);
            const controller: UserController = new UserController();
-           const users: User[] = await controller.getUsers();
+           const users: UserEntity[] = await controller.getUsers();
 
            expect(users).toEqual(usersData);
            expect(spy).toHaveBeenCalledWith();
@@ -37,10 +37,10 @@ describe("UserController", () => {
    describe("createUser", () => {
        test("should add user to the database", async() => {
             const payload: ICreateUserPayload = generateUserPayload();
-            const userData: User = generateUserData(payload);
+            const userData: UserEntity = generateUserData(payload);
             const spy = jest.spyOn(UserRepository, "createUser").mockResolvedValueOnce(userData);
             const controller: UserController = new UserController();
-            const user: User = await controller.createUser(payload);
+            const user: UserEntity = await controller.createUser(payload);
 
            expect(user).toMatchObject(payload);
            expect(user).toEqual(userData);
@@ -51,10 +51,10 @@ describe("UserController", () => {
 
    describe("getUser", () => {
       test("should return user from the database", async() => {
-          const userData: User = generateUserData();
+          const userData: UserEntity = generateUserData();
           const spy = jest.spyOn(UserRepository, "getUser").mockResolvedValueOnce(userData);
           const controller: UserController = new UserController();
-          const user: User | null = await controller.getUser(userData.id!!);
+          const user: UserEntity | null = await controller.getUser(userData.id!!);
 
           expect(user).toEqual(userData);
           expect(user?.id).toBe(userData.id);
@@ -66,7 +66,7 @@ describe("UserController", () => {
            const id = randUuid();
            const spy = jest.spyOn(UserRepository, 'getUser').mockResolvedValueOnce(null)
            const controller: UserController = new UserController();
-           const user: User | null = await controller.getUser(id);
+           const user: UserEntity | null = await controller.getUser(id);
 
            expect(user).toBeNull();
            expect(spy).toHaveBeenCalledWith(id);

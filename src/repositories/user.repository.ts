@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import { Role, User } from "../entities/User";
+import { Role, UserEntity } from "../entities/user.entity";
 import { passwordHash } from "../utils/passwordHash";
 
 export interface ICreateUserPayload {
@@ -9,14 +9,14 @@ export interface ICreateUserPayload {
   role: Role;
 }
 
-export const getUsers = async (): Promise<Array<User>> => {
-  const repository: Repository<User> = getRepository(User);
+export const getUsers = async (): Promise<Array<UserEntity>> => {
+  const repository: Repository<UserEntity> = getRepository(UserEntity);
   return repository.find();
 };
 
-export const createUser = async (payload: ICreateUserPayload): Promise<User> => {
-  const repository: Repository<User> = getRepository(User);
-  const user: User = new User();
+export const createUser = async (payload: ICreateUserPayload): Promise<UserEntity> => {
+  const repository: Repository<UserEntity> = getRepository(UserEntity);
+  const user: UserEntity = new UserEntity();
   payload.password = passwordHash(payload.password);
 
   return repository.save({
@@ -25,9 +25,9 @@ export const createUser = async (payload: ICreateUserPayload): Promise<User> => 
   });
 };
 
-export const getUser = async (id: string): Promise<User | null> => {
-  const repository: Repository<User> = getRepository(User);
-  const user: User | null = await repository.findOne({ where: { id } });
+export const getUser = async (id: string): Promise<UserEntity | null> => {
+  const repository: Repository<UserEntity> = getRepository(UserEntity);
+  const user: UserEntity | null = await repository.findOne({ where: { id } });
   if (!user) {
     return null;
   }

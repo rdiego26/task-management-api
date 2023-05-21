@@ -9,10 +9,10 @@ import {
     OneToOne
 } from "typeorm";
 import { Length } from "class-validator";
-import { User } from "./User";
+import { UserEntity } from "./user.entity";
 
 @Entity()
-export class Task {
+export class TaskEntity {
     @PrimaryGeneratedColumn("uuid")
     id?: string;
 
@@ -25,9 +25,9 @@ export class Task {
     @Column()
     performedAt!: Date;
 
-    @OneToOne(() => User)
+    @OneToOne(() => UserEntity)
     @JoinColumn()
-    owner!: User;
+    owner!: UserEntity;
 
     @CreateDateColumn()
     createdAt!: Date;
