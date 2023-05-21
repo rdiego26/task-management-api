@@ -1,7 +1,6 @@
-import { Get, Route, Tags } from "tsoa";
+import { Get, Route, Tags, Post, Body } from "tsoa";
 import { User } from "../entities/User";
-import { getUsers } from "../repositories/user.repository";
-
+import { createUser, getUsers, ICreateUserPayload } from "../repositories/user.repository";
 @Route("users")
 @Tags("User")
 export default class UserController {
@@ -9,4 +8,10 @@ export default class UserController {
     public async getUsers(): Promise<Array<User>> {
         return getUsers();
     }
+
+    @Post("/")
+    public async createUser(@Body() body: ICreateUserPayload): Promise<User> {
+        return createUser(body);
+    }
 }
+
