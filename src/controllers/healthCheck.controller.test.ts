@@ -1,4 +1,4 @@
-import HealthCheckController from "./healthCheck";
+import HealthCheckController from "./healthCheck.controller";
 // @ts-ignore
 import path from "path";
 const { name, version } = require(path.resolve("./package.json"));
