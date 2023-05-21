@@ -1,4 +1,4 @@
-import { randEmail, randFullName, randUuid } from '@ngneat/falso';
+import { randEmail, randFullName, randUuid, randPassword } from '@ngneat/falso';
 import { Role, User } from "../../src/entities/User";
 import { ICreateUserPayload } from "../../src/repositories/user.repository";
 
@@ -7,6 +7,7 @@ export function generateUserData(override = {}): User {
         id: randUuid(),
         name: randFullName(),
         email: randEmail(),
+        password: randPassword(),
         role: Role.TECHNICIAN,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -26,6 +27,7 @@ export function generateUserPayload(): ICreateUserPayload {
     return {
         name: randFullName(),
         email: randEmail(),
+        password: randPassword(),
         role: Role.TECHNICIAN,
     }
 }
