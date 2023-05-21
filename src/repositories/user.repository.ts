@@ -21,3 +21,12 @@ export const createUser = async (payload: ICreateUserPayload): Promise<User> => 
     ...payload
   });
 };
+
+export const getUser = async (id: string): Promise<User | null> => {
+  const repository: Repository<User> = getRepository(User);
+  const user: User | null = await repository.findOne({ where: { id } });
+  if (!user) {
+    return null;
+  }
+  return user;
+};
