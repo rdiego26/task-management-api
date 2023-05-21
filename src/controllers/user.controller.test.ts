@@ -1,6 +1,7 @@
+import { randUuid } from '@ngneat/falso';
 import UserController from "./user.controller";
 import * as UserRepository from "../repositories/user.repository";
-import {generateUsersData, generateUserData, generateUserPayload} from "../../test/utils/generate";
+import { generateUsersData, generateUserData, generateUserPayload } from "../../test/utils/generate";
 import { User } from "../entities/User";
 import {ICreateUserPayload} from "../repositories/user.repository";
 
@@ -46,6 +47,30 @@ describe("UserController", () => {
            expect(spy).toHaveBeenCalledWith(payload);
            expect(spy).toHaveBeenCalledTimes(1);
        });
+   });
 
+   describe("getUser", () => {
+      test("should return user from the database", async() => {
+          const userData: User = generateUserData();
+          const spy = jest.spyOn(UserRepository, "getUser").mockResolvedValueOnce(userData);
+          const controller: UserController = new UserController();
+          const user: User = await controller.getUser(userData.id);
+
+          expect(user).toEqual(userData);
+          expect(user?.id).toBe(userData.id);
+          expect(spy).toHaveBeenCalledWith(userData.id);
+          expect(spy).toHaveBeenCalledTimes(1);
+      });
+
+       test("should return null if user not found", async () => {
+           const id = randUuid();
+           const spy = jest.spyOn(UserRepository, 'getUser').mockResolvedValueOnce(null)
+           const controller: UserController = new UserController();
+           const user: User = await controller.getUser(id);
+
+           expect(user).toBeNull();
+           expect(spy).toHaveBeenCalledWith(id);
+           expect(spy).toHaveBeenCalledTimes(1);
+       })
    });
 });
