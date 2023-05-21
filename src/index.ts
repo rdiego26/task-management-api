@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, DataSource } from "typeorm";
 import express, { Application } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
@@ -26,13 +26,19 @@ app.use(
 
 app.use(Router);
 
-createConnection(dbConfig)
-    .then((_connection) => {
+const start = async () => {
+    try {
+        const dbConnection: DataSource = await createConnection(dbConfig);
+        await dbConnection.synchronize(true);
+
         app.listen(PORT, () => {
             console.log("Server is running on port", PORT);
         });
-    })
-    .catch((err) => {
+    } catch (err: any) {
         console.log("Unable to connect to db", err);
         process.exit(1);
-    });
+    }
+
+};
+
+void start();

@@ -11,3 +11,7 @@ API with typescript to task management.
 
 ### Scripts
 - Run tests: `docker-compose run api npm test`
+
+
+### Next steps / Ongoing
+- Implement migrations and turn off the auto sync from typeorm.

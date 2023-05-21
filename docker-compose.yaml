@@ -16,8 +16,8 @@ services:
     environment:
       DB_HOST: "db"
       DB_NAME: "db"
-      DB_USER: "root"
-      DB_PASSWORD: "password"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "password-secret"
       DB_PORT: "3306"
     networks:
       - broker_net
@@ -38,27 +38,22 @@ services:
     networks:
       - broker_net
   db:
-    image: mysql:latest
+    image: mysql:5.7
     container_name: 'task-management-db'
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: "db"
-      MYSQL_PASSWORD: "password"
-      MYSQL_ROOT_PASSWORD: "password"
-    ports:
-      - "3306:3306"
-    expose:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: "password-secret"
     networks:
       - db_net
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
 
 networks:
   broker_net:
-    driver: bridge
   db_net:
-    driver: bridge
-
-volumes:
-  db-data:
