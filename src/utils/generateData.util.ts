@@ -1,7 +1,27 @@
-import { randEmail, randFullName, randUuid, randPassword } from '@ngneat/falso';
+import { randEmail, randFullName, randUuid, randPassword, randFullAddress } from '@ngneat/falso';
 import { Role, UserEntity } from "../entities/user.entity";
 import { ICreateUserPayload } from "../repositories/user.repository";
 import { ILoginPayload } from "../controllers/login.controller";
+import { TaskEntity } from "../entities/task.entity";
+
+export function generateTaskData(override = {}): TaskEntity {
+    return {
+        id: randUuid(),
+        summary: randFullAddress(),
+        owner: generateUserData(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...override
+    }
+}
+
+export function generateTasksData(n: number = 1): TaskEntity[] {
+    return Array.from({
+        length: n
+    }, (_, i: number) => {
+        return generateTaskData()
+    });
+}
 
 export function generateUserData(override = {}): UserEntity {
     return {
