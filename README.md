@@ -10,6 +10,7 @@ API with typescript to task management.
 - [JSON Web Token](https://jwt.io/)
 
 
+
 ### Scripts
 - Run tests: `docker-compose run api npm test`
 
