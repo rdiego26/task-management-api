@@ -33,7 +33,7 @@ router.post("/", async(req: Request, res: Response) => {
     const response: UserEntity = await controller.createUser(req.body);
 
     return res
-        .status(StatusCodes.OK)
+        .status(StatusCodes.CREATED)
         .send(response);
 });
 
