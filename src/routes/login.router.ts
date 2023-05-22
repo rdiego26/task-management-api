@@ -1,4 +1,5 @@
 import express, { Request, Response} from "express";
+import { StatusCodes } from "http-status-codes";
 import LoginController, {ILoginResponse} from "../controllers/login.controller";
 
 const router = express.Router();
@@ -8,9 +9,13 @@ router.post("/", async(req: Request, res: Response) => {
         const controller: LoginController = new LoginController();
         const response: ILoginResponse = await controller.login(req.body);
 
-        return res.send(response);
+        return res
+            .status(StatusCodes.OK)
+            .send(response);
     } catch (err: any) {
-        return res.status(400).end();
+        return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .end();
     }
 });
 

@@ -1,7 +1,7 @@
 import { randUuid } from '@ngneat/falso';
 import UserController from "./user.controller";
 import * as UserRepository from "../repositories/user.repository";
-import { generateUsersData, generateUserData, generateUserPayload } from "../../test/utils/generate";
+import { generateUsersData, generateUserData, generateUserPayload } from "../utils/generateData.util";
 import { UserEntity } from "../entities/user.entity";
 import {ICreateUserPayload} from "../repositories/user.repository";
 

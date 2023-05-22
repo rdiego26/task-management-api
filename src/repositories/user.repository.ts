@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { Role, UserEntity } from "../entities/user.entity";
-import { passwordHash } from "../utils/passwordHash";
+import { passwordHashUtil } from "../utils/passwordHash.util";
 
 export interface ICreateUserPayload {
   name: string;
@@ -17,7 +17,7 @@ export const getUsers = async (): Promise<Array<UserEntity>> => {
 export const createUser = async (payload: ICreateUserPayload): Promise<UserEntity> => {
   const repository: Repository<UserEntity> = getRepository(UserEntity);
   const user: UserEntity = new UserEntity();
-  payload.password = passwordHash(payload.password);
+  payload.password = passwordHashUtil(payload.password);
 
   return repository.save({
     ...user,

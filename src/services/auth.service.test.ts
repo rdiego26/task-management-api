@@ -1,5 +1,5 @@
 import * as AuthService from "../services/auth.service";
-import { generateUsersData, generateUserData, generateUserPayload } from "../../test/utils/generate";
+import { generateUsersData, generateUserData, generateUserPayload } from "../utils/generateData.util";
 import { UserEntity } from "../entities/user.entity";
 import {generateAuthToken, verifyToken} from "../services/auth.service";
 

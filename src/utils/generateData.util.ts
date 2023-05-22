@@ -1,7 +1,7 @@
 import { randEmail, randFullName, randUuid, randPassword } from '@ngneat/falso';
-import { Role, UserEntity } from "../../src/entities/user.entity";
-import { ICreateUserPayload } from "../../src/repositories/user.repository";
-import {ILoginPayload} from "../../src/controllers/login.controller";
+import { Role, UserEntity } from "../entities/user.entity";
+import { ICreateUserPayload } from "../repositories/user.repository";
+import { ILoginPayload } from "../controllers/login.controller";
 
 export function generateUserData(override = {}): UserEntity {
     return {
