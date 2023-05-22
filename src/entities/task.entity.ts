@@ -11,7 +11,7 @@ import {
 import { Length } from "class-validator";
 import { UserEntity } from "./user.entity";
 
-@Entity()
+@Entity("tasks")
 export class TaskEntity {
     @PrimaryGeneratedColumn("uuid")
     id?: string;
