@@ -4,7 +4,6 @@ import TaskController from "../controllers/task.controller";
 import { TaskEntity } from "../entities/task.entity";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { validateManagerMiddleware } from "../middlewares/validateManager.middleware";
-import { verifyToken } from "../services/auth.service";
 
 const router = express.Router();
 
