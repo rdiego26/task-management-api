@@ -23,7 +23,7 @@ export class TaskEntity {
     summary!: string;
 
     @Column()
-    performedAt!: Date;
+    performedAt?: Date;
 
     @OneToOne(() => UserEntity)
     @JoinColumn()
@@ -36,5 +36,5 @@ export class TaskEntity {
     updatedAt!: Date;
 
     @DeleteDateColumn()
-    deletedAt!: Date;
+    deletedAt?: Date;
 }
