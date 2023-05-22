@@ -19,7 +19,7 @@ router.get("/", [ authMiddleware, validateManagerMiddleware ], async(req: Reques
 
 router.get("/myTasks", [ authMiddleware ], async(req: Request, res: Response) => {
     const controller: TaskController = new TaskController();
-    const response: TaskEntity[] | undefined = await controller.getMyTasks(req, res);
+    const response: TaskEntity[] | undefined = await controller.getMyTasks(req);
 
     return res
         .status(StatusCodes.OK)

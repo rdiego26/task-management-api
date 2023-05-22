@@ -1,11 +1,11 @@
-import { Get, Path, Request, Tags } from "tsoa";
+import * as express from "express";
+import { Get, Route, Request, Tags } from "tsoa";
 import { getMyTasks, getTasks } from "../repositories/task.repository";
 import { TaskEntity } from "../entities/task.entity";
-import { StatusCodes } from "http-status-codes";
 import { verifyToken } from "../services/auth.service";
 import { UserEntity } from "../entities/user.entity";
 
-@Path("tasks")
+@Route("tasks")
 @Tags("Task")
 export default class TaskController {
     @Get("/")
@@ -14,7 +14,7 @@ export default class TaskController {
     }
 
     @Get("myTasks")
-    public async getMyTasks(@Request() request: any, response: any): Promise<Array<TaskEntity> | undefined> {
+    public async getMyTasks(@Request() request: express.Request): Promise<Array<TaskEntity>> {
         const auth: string | undefined = request.headers.authorization;
         if (auth && auth.startsWith('Bearer')) {
             const token: string = auth.slice(7);
@@ -22,9 +22,7 @@ export default class TaskController {
 
             return getMyTasks(user);
         } else {
-            response
-                .status(StatusCodes.UNAUTHORIZED)
-                .end();
+            return [];
         }
     }
 }

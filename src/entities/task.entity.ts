@@ -22,7 +22,9 @@ export class TaskEntity {
     @Length(0, 2500)
     summary!: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     performedAt?: Date;
 
     @OneToOne(() => UserEntity)
