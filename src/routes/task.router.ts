@@ -4,8 +4,25 @@ import TaskController from "../controllers/task.controller";
 import { TaskEntity } from "../entities/task.entity";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { validateManagerMiddleware } from "../middlewares/validateManager.middleware";
+import { UpdateResult } from "typeorm";
 
 const router = express.Router();
+
+router.delete("/:id", [ authMiddleware, validateManagerMiddleware ], async(req: Request, res: Response) => {
+    const controller: TaskController = new TaskController();
+    const response: UpdateResult = await controller.removeTask(req.params.id);
+
+    if (response.affected && response.affected > 0) {
+        return res
+            .status(StatusCodes.OK)
+            .send(response);
+    } else {
+        return res
+            .status(StatusCodes.NOT_MODIFIED)
+            .send(response);
+    }
+
+});
 
 router.get("/", [ authMiddleware, validateManagerMiddleware ], async(req: Request, res: Response) => {
     const controller: TaskController = new TaskController();

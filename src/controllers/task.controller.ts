@@ -1,13 +1,20 @@
 import * as express from "express";
-import { Get, Route, Request, Tags } from "tsoa";
-import { getMyTasks, getTasks } from "../repositories/task.repository";
+import { Get, Route, Request, Tags, Delete, Path } from "tsoa";
+import { getMyTasks, getTasks, deleteTask } from "../repositories/task.repository";
 import { TaskEntity } from "../entities/task.entity";
 import { verifyToken } from "../services/auth.service";
 import { UserEntity } from "../entities/user.entity";
+import { UpdateResult } from "typeorm";
 
 @Route("tasks")
 @Tags("Task")
 export default class TaskController {
+
+    @Delete("/:id")
+    public async removeTask(@Path() id: string): Promise<UpdateResult> {
+        return deleteTask(id);
+    }
+
     @Get("/")
     public async getTasks(): Promise<Array<TaskEntity>> {
         return getTasks();

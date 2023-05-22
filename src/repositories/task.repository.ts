@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Repository, UpdateResult } from "typeorm";
 import { TaskEntity } from "../entities/task.entity";
 import { UserEntity } from "../entities/user.entity";
 
@@ -15,5 +15,12 @@ export const getMyTasks = async (owner: UserEntity): Promise<TaskEntity[]> => {
         id: owner.id
       }
     }
+  });
+};
+
+export const deleteTask = async (taskId: string): Promise<UpdateResult> => {
+  const repository: Repository<TaskEntity> = getRepository(TaskEntity);
+  return await repository.softDelete({
+      id: taskId
   });
 };
