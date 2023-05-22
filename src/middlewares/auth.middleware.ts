@@ -1,8 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
-import {verifyToken} from "../services/auth.service";
+import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from "http-status-codes";
+import { verifyToken } from "../services/auth.service";
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const auth = req.headers.authorization;
+    const auth: string | undefined = req.headers.authorization;
     if (auth && auth.startsWith('Bearer')) {
         const token = auth.slice(7);
 
@@ -10,9 +11,13 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
             req.body.tokenData = verifyToken(token);
             next();
         } catch (error) {
-            throw new Error("Unauthenticated");
+            res
+                .status(StatusCodes.UNAUTHORIZED)
+                .end();
         }
     } else {
-        throw new Error("Unauthenticated");
+        res
+            .status(StatusCodes.UNAUTHORIZED)
+            .end();
     }
 };
