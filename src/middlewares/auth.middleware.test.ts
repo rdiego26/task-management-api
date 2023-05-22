@@ -2,9 +2,8 @@ import { StatusCodes } from "http-status-codes";
 import { createRequest, createResponse } from "node-mocks-http";
 import { authMiddleware } from "./auth.middleware";
 import * as AuthService from "../services/auth.service";
-import * as UserRepository from "../repositories/user.repository";
-import {generateUserData} from "../utils/generateData.util";
-import {UserEntity} from "../entities/user.entity";
+import { generateUserData } from "../utils/generateData.util";
+import { UserEntity } from "../entities/user.entity";
 
 afterEach(() => {
    jest.resetAllMocks();
