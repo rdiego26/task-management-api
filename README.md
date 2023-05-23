@@ -10,10 +10,16 @@ API with typescript to task management.
 - [JSON Web Token](https://jwt.io/)
 
 
+### Steps to run
+- Solve dependencies `npm install`
+- Up containers `docker-compose up`
 
-### Scripts
+### Available Scripts
 - Run tests: `docker-compose run api npm test`
 
 
-### Next steps / Ongoing
+### Next steps / Comments
 - Implement [migrations](https://orkhan.gitbook.io/typeorm/docs/migrations) and turn off the auto sync from typeorm.
+- Remove `any` in code in order to enforce strong types
+- Improve the swagger documentation(improve types, etc)
+- Turns middlewares thin extracting logic into a services 
