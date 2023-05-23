@@ -20,6 +20,8 @@ services:
       DB_PASSWORD: "password-secret"
       DB_PORT: "3306"
       SECRET_JWT: "QKvvNE68gRt&vXNJB7Hc^Ajw"
+      RABBIT_MQ_USER: username
+      RABBIT_MQ_PASS: password
     networks:
       - broker_net
       - db_net
