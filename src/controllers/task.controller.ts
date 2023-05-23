@@ -8,11 +8,13 @@ import {
 	ICreateTaskPayload,
 	createTask,
 	IAssignTaskPayload,
+	performTask,
 } from '../repositories/task.repository';
 import { TaskEntity } from '../entities/task.entity';
 import { verifyToken } from '../services/auth.service';
 import { UserEntity } from '../entities/user.entity';
 import { UpdateResult } from 'typeorm';
+import { sendMessage } from '../producers/performedTask.producer';
 
 @Route('tasks')
 @Tags('Task')
@@ -45,6 +47,19 @@ export default class TaskController {
 		const data: IAssignTaskPayload = request.body;
 
 		return assignTask(id, data.userId);
+	}
+
+	@Patch('/:id/perform')
+	public async performTask(@Request() request: express.Request, @Path() id: string): Promise<any> {
+		const auth: string | undefined = request.headers.authorization;
+		if (auth && auth.startsWith('Bearer')) {
+			const token: string = auth.slice(7);
+			const user: UserEntity = verifyToken(token);
+			const result: any = await performTask(id);
+
+			await sendMessage(id, user.id!);
+			return result;
+		}
 	}
 
 	@Post('/')

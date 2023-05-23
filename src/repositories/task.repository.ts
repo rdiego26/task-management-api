@@ -27,6 +27,11 @@ export const getMyTasks = async (owner: UserEntity): Promise<TaskEntity[]> => {
 	});
 };
 
+export const getTask = async (id: string): Promise<TaskEntity> => {
+	const repository: Repository<TaskEntity> = getRepository(TaskEntity);
+	return await repository.findOneOrFail({ where: { id }, relations: { owner: true } });
+};
+
 export const assignTask = async (taskId: string, userId: string): Promise<any> => {
 	const repository: Repository<TaskEntity> = getRepository(TaskEntity);
 	return await repository.update({ id: taskId }, { owner: { id: userId } });

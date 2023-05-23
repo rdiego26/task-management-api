@@ -9,7 +9,7 @@ export const validateManagerMiddleware = (req: Request, res: Response, next: Nex
 		const token = auth.slice(7);
 
 		try {
-			const user: UserEntity = (req.body.tokenData = verifyToken(token));
+			const user: UserEntity = verifyToken(token);
 			if (user.role === Role.MANAGER) {
 				next();
 			} else {
