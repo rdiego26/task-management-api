@@ -53,6 +53,7 @@ describe('UserController', () => {
 			const userData: UserEntity = generateUserData();
 			const spy = jest.spyOn(UserRepository, 'getUser').mockResolvedValueOnce(userData);
 			const controller: UserController = new UserController();
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const user: UserEntity | null = await controller.getUser(userData.id!);
 
 			expect(user).toEqual(userData);

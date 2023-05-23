@@ -3,6 +3,7 @@ import { createConnection, DataSource } from 'typeorm';
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
+import { start as startPerformedTaskConsumer } from './consumers/performedTask.consumer';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -26,7 +27,11 @@ app.use(Router);
 const start = async () => {
 	try {
 		const dbConnection: DataSource = await createConnection(dbConfig);
-		await dbConnection.synchronize(true);
+		await dbConnection.synchronize(false);
+
+		setTimeout(async () => {
+			await startPerformedTaskConsumer();
+		}, 5000);
 
 		app.listen(PORT, () => {
 			console.log('Server is running on port', PORT);

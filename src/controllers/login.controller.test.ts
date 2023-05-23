@@ -1,7 +1,6 @@
-import UserController from './user.controller';
 import * as PasswordUtils from '../utils/passwordHash.util';
 import * as UserRepository from '../repositories/user.repository';
-import { generateLoginPayload, generateUserData, generateUserPayload } from '../utils/generateData.util';
+import { generateLoginPayload, generateUserData } from '../utils/generateData.util';
 import { UserEntity } from '../entities/user.entity';
 import LoginController, { ILoginPayload } from './login.controller';
 

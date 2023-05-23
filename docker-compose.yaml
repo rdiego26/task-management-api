@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - broker
       - db
+      - broker
     volumes:
       - ./src:/app/src
     ports:
@@ -25,9 +25,10 @@ services:
     networks:
       - broker_net
       - db_net
+
   broker:
     image: rabbitmq:3-management-alpine
-    container_name: 'task-management-broker'
+    container_name: 'broker'
     restart: always
     environment:
       - "RABBITMQ_DEFAULT_PASS=password"
@@ -40,6 +41,7 @@ services:
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
       - broker_net
+
   db:
     image: mysql:5.7
     container_name: 'task-management-db'
@@ -59,4 +61,6 @@ volumes:
 
 networks:
   broker_net:
+    driver: bridge
   db_net:
+    driver: bridge
