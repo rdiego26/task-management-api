@@ -1,14 +1,14 @@
-import HealthCheckController from "./healthCheck.controller";
-// @ts-ignore
-import path from "path";
-const { name, version } = require(path.resolve("./package.json"));
+import HealthCheckController from './healthCheck.controller';
+import * as path from 'path';
+/* tslint:disable no-var-requires */
+const { name, version } = require(path.resolve('./package.json'));
 
-describe("HealthCheckController", () => {
-    test("should return health check message", async() => {
-        const controller = new HealthCheckController();
-        const response = await controller.getData();
+describe('HealthCheckController', () => {
+	test('should return health check message', async () => {
+		const controller = new HealthCheckController();
+		const response = await controller.getData();
 
-        expect(response.name).toBe(name);
-        expect(response.version).toBe(version);
-    });
+		expect(response.name).toBe(name);
+		expect(response.version).toBe(version);
+	});
 });

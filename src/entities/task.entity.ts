@@ -1,42 +1,42 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
-    JoinColumn,
-    OneToOne
-} from "typeorm";
-import { Length } from "class-validator";
-import { UserEntity } from "./user.entity";
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	CreateDateColumn,
+	UpdateDateColumn,
+	DeleteDateColumn,
+	JoinColumn,
+	OneToOne,
+} from 'typeorm';
+import { Length } from 'class-validator';
+import { UserEntity } from './user.entity';
 
-@Entity("tasks")
+@Entity('tasks')
 export class TaskEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id?: string;
+	@PrimaryGeneratedColumn('uuid')
+		id?: string;
 
-    @Column({
-        nullable: false
-    })
-    @Length(0, 2500)
-    summary!: string;
+	@Column({
+		nullable: false,
+	})
+	@Length(0, 2500)
+		summary!: string;
 
-    @Column({
-        nullable: true
-    })
-    performedAt?: Date;
+	@Column({
+		nullable: true,
+	})
+		performedAt?: Date;
 
-    @OneToOne(() => UserEntity)
-    @JoinColumn()
-    owner!: UserEntity;
+	@OneToOne(() => UserEntity)
+	@JoinColumn()
+		owner!: UserEntity;
 
-    @CreateDateColumn()
-    createdAt!: Date;
+	@CreateDateColumn()
+		createdAt!: Date;
 
-    @UpdateDateColumn()
-    updatedAt!: Date;
+	@UpdateDateColumn()
+		updatedAt!: Date;
 
-    @DeleteDateColumn()
-    deletedAt?: Date;
+	@DeleteDateColumn()
+		deletedAt?: Date;
 }

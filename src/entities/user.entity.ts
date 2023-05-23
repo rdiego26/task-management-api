@@ -1,51 +1,45 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-import { IsEmail } from "class-validator";
+import { IsEmail } from 'class-validator';
 
 export enum Role {
-  MANAGER = "manager",
-  TECHNICIAN = "technician"
+	MANAGER = 'manager',
+	TECHNICIAN = 'technician',
 }
 
-@Entity("users")
+@Entity('users')
 export class UserEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id?: string;
+	@PrimaryGeneratedColumn('uuid')
+		id?: string;
 
-    @Column({
-        nullable: false
-    })
-    name!: string;
+	@Column({
+		nullable: false,
+	})
+		name!: string;
 
-    @Column({
-        nullable: false,
-        unique: true
-    })
-    @IsEmail()
-    email!: string;
+	@Column({
+		nullable: false,
+		unique: true,
+	})
+	@IsEmail()
+		email!: string;
 
-    @Column({
-        nullable: false
-    })
-    password!: string
+	@Column({
+		nullable: false,
+	})
+		password!: string;
 
-    @Column({
-        nullable: false,
-        type: "enum",
-        enum: Role,
-        default: Role.TECHNICIAN
-    })
-    role!: Role;
+	@Column({
+		nullable: false,
+		type: 'enum',
+		enum: Role,
+		default: Role.TECHNICIAN,
+	})
+		role!: Role;
 
-    @CreateDateColumn()
-    createdAt!: Date;
+	@CreateDateColumn()
+		createdAt!: Date;
 
-    @UpdateDateColumn()
-    updatedAt!: Date;
+	@UpdateDateColumn()
+		updatedAt!: Date;
 }
