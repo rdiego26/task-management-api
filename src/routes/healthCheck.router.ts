@@ -5,10 +5,14 @@ import HealthCheckController, { HealthCheckResponse } from '../controllers/healt
 const router = express.Router();
 
 router.get('/healthCheck', async (_req, res) => {
-	const controller: HealthCheckController = new HealthCheckController();
-	const response: HealthCheckResponse = await controller.getData();
+	try {
+		const controller: HealthCheckController = new HealthCheckController();
+		const response: HealthCheckResponse = await controller.getData();
 
-	return res.status(StatusCodes.OK).send(response);
+		return res.status(StatusCodes.OK).send(response);
+	} catch (e: any) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Unable to perform the operation' });
+	}
 });
 
 export default router;

@@ -6,27 +6,39 @@ import { UserEntity } from '../entities/user.entity';
 const router = express.Router();
 
 router.get('/', async (_req, res) => {
-	const controller: UserController = new UserController();
-	const response: UserEntity[] = await controller.getUsers();
+	try {
+		const controller: UserController = new UserController();
+		const response: UserEntity[] = await controller.getUsers();
 
-	return res.status(StatusCodes.OK).send(response);
+		return res.status(StatusCodes.OK).send(response);
+	} catch (e: any) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Unable to perform the operation' });
+	}
 });
 
 router.get('/:id', async (req, res) => {
-	const controller: UserController = new UserController();
-	const response: UserEntity | null = await controller.getUser(req.params.id);
+	try {
+		const controller: UserController = new UserController();
+		const response: UserEntity | null = await controller.getUser(req.params.id);
 
-	if (!response) {
-		return res.status(StatusCodes.NOT_FOUND).send({ message: 'No user found' });
+		if (!response) {
+			return res.status(StatusCodes.NOT_FOUND).send({ message: 'No user found' });
+		}
+		return res.status(StatusCodes.OK).send(response);
+	} catch (e: any) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Unable to perform the operation' });
 	}
-	return res.status(StatusCodes.OK).send(response);
 });
 
 router.post('/', async (req: Request, res: Response) => {
-	const controller: UserController = new UserController();
-	const response: UserEntity = await controller.createUser(req.body);
+	try {
+		const controller: UserController = new UserController();
+		const response: UserEntity = await controller.createUser(req.body);
 
-	return res.status(StatusCodes.CREATED).send(response);
+		return res.status(StatusCodes.CREATED).send(response);
+	} catch (e: any) {
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: 'Unable to perform the operation' });
+	}
 });
 
 export default router;
