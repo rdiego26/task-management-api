@@ -4,6 +4,7 @@
   "description": "API with typescript to task management.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix --ext .ts .",
     "start": "npm run build && node build/index.js",
     "build": "tsc",
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
