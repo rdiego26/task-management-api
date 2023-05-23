@@ -22,4 +22,5 @@ API with typescript to task management.
 - Implement [migrations](https://orkhan.gitbook.io/typeorm/docs/migrations) and turn off the auto sync from typeorm.
 - Remove `any` in code in order to enforce strong types
 - Improve the swagger documentation(improve types, etc)
-- Turns middlewares thin extracting logic into a services 
+- Turns middlewares thin extracting logic into a services
+- Expose endpoint to provide reports
