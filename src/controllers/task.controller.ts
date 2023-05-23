@@ -1,6 +1,13 @@
 import * as express from "express";
-import { Get, Route, Request, Tags, Delete, Path } from "tsoa";
-import { getMyTasks, getTasks, deleteTask } from "../repositories/task.repository";
+import { Get, Route, Request, Tags, Delete, Path, Patch, Post } from "tsoa";
+import {
+    getMyTasks,
+    getTasks,
+    deleteTask,
+    assignTask,
+    ICreateTaskPayload,
+    createTask
+} from "../repositories/task.repository";
 import { TaskEntity } from "../entities/task.entity";
 import { verifyToken } from "../services/auth.service";
 import { UserEntity } from "../entities/user.entity";
@@ -31,5 +38,19 @@ export default class TaskController {
         } else {
             return [];
         }
+    }
+
+    @Patch("/:id/assign")
+    public async assignTask(@Request() request: express.Request, @Path() id: string): Promise<any> {
+        const userId: string = request.body.userId;
+
+        return assignTask(id, userId);
+    }
+
+    @Post("/")
+    public async createTask(@Request() request: express.Request): Promise<any> {
+        const data: ICreateTaskPayload = request.body;
+
+        return createTask(data);
     }
 }

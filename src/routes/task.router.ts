@@ -5,6 +5,7 @@ import { TaskEntity } from "../entities/task.entity";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { validateManagerMiddleware } from "../middlewares/validateManager.middleware";
 import { UpdateResult } from "typeorm";
+import {ICreateTaskPayload} from "../repositories/task.repository";
 
 const router = express.Router();
 
@@ -36,6 +37,24 @@ router.get("/", [ authMiddleware, validateManagerMiddleware ], async(req: Reques
 router.get("/myTasks", [ authMiddleware ], async(req: Request, res: Response) => {
     const controller: TaskController = new TaskController();
     const response: TaskEntity[] | undefined = await controller.getMyTasks(req);
+
+    return res
+        .status(StatusCodes.OK)
+        .send(response);
+});
+
+router.patch("/:id/assign", [ authMiddleware, validateManagerMiddleware ], async(req: Request, res: Response) => {
+    const controller: TaskController = new TaskController();
+    const response: any = await controller.assignTask(req, req.params.id);
+
+    return res
+        .status(StatusCodes.OK)
+        .send(response);
+});
+
+router.post("/", [ authMiddleware, validateManagerMiddleware ], async(req: Request, res: Response) => {
+    const controller: TaskController = new TaskController();
+    const response: any = await controller.createTask(req);
 
     return res
         .status(StatusCodes.OK)
