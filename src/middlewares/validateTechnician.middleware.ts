@@ -17,9 +17,6 @@ export const validateTechnicianMiddleware = async (req: Request, res: Response, 
 			const user: UserEntity = verifyToken(token);
 			const task: TaskEntity = await getTask(taskId);
 
-			console.log(`task=${JSON.stringify(task)}`);
-			console.log(`user=${JSON.stringify(user)}`);
-
 			if (task.owner.id != user.id) {
 				res.status(StatusCodes.UNAUTHORIZED).end();
 			} else {
