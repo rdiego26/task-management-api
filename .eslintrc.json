@@ -52,7 +52,8 @@
     "@typescript-eslint/indent": [
       2,
       "tab"
-    ]
+    ],
+    "@typescript-eslint/no-var-requires": 0
   },
   "ignorePatterns": [
     "**webpack**",
