@@ -24,3 +24,4 @@ API with typescript to task management.
 - Improve the swagger documentation(improve types, etc)
 - Turns middlewares thin extracting logic into a services
 - Expose endpoint to provide reports
+- Generic error handle and improve error handling
